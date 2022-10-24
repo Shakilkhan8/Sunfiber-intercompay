@@ -2,7 +2,6 @@
 <odoo>
     <data>
 
-        <!-- Inherit Form View to Modify it -->
         <record id="carpet_color_form_id" model="ir.ui.view">
             <field name="name">Carpet Color Roll</field>
             <field name="model">sale.order</field>
@@ -34,7 +33,7 @@
 
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']"
                        position="before">
-                    <field name="square_foot"/>
+                    <field name="square_foot" />
                 </xpath>
 
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_invoiced']"
@@ -53,8 +52,8 @@
 
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']"
                        position="after">
-                    <field name="quality_id"/>
-                    <field name="design_id"/>
+                    <field name="quality_id" />
+                    <field name="design_id" />
                 </xpath>
 
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom']"
@@ -70,8 +69,8 @@
 
                 <!--adding carpet color line to sale order-->
                 <xpath expr="//page[@name='order_lines']" position="before">
-                    <notebook string="Order Booking">
-                        <page string="Carpet Colors">
+                    <notebook string="Order Booking" class="order_booking">
+                        <page>
                             <field name="color_line_id" widget="section_and_note_one2many" mode="tree,kanban" >
                                 <tree string="Carpet Colors" editable="bottom" >
                                    <control>

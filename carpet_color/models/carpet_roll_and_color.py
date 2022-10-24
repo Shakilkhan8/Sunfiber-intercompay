@@ -59,31 +59,7 @@ class CarpetColorModel(models.Model):
         for line in self.color_line_id:
             total_roll += line.total_qty
         self.total_roll = total_roll
-        # for line in self.color_line_id:
-        #     total = 0
-        #     total_foot = 0
-        #     total_square_feet = 0
-        #     # here we calculate total rolls for line
-        #
-        #     # total += line.color_0 + line.color_1 + line.color_2 + line.color_3 + line.color_4 + line.color_5 + line.color_6 + line.color_7 + line.color_8 + line.color_9 + line.color_10 + line.color_11 + line.color_12 + line.color_13 + line.color_14 + line.color_15 + line.color_16 + line.color_17 + line.color_18 + line.color_19 + line.color_20 + line.color_21 + line.color_22 + line.color_23 + line.color_24 + line.color_25 + line.color_26 + line.color_27 + line.color_28 + line.color_29 + line.color_30 + line.color_31 + line.color_32 + line.color_33 + line.color_34 + line.color_35 + line.color_36 + line.color_37 + line.color_38 + line.color_39 + line.color_40 + line.color_41 + line.color_42 + line.color_43 + line.color_44 + line.color_45 + line.color_46 + line.color_47 + line.color_48 + line.color_49 + line.color_50 + line.color_51 + line.color_52 + line.color_53 + line.color_54 + line.color_55 + line.color_56 + line.color_57 + line.color_58 + line.color_59 + line.color_60 + line.color_61 + line.color_62 + line.color_63 + line.color_64 + line.color_65 + line.color_66 + line.color_67 + line.color_68 + line.color_69 + line.color_70 + line.color_71 + line.color_72 + line.color_73 + line.color_74 + line.color_75 + line.color_76 + line.color_77 + line.color_78 + line.color_79 + line.color_80 + line.color_81+ line.color_82 + line.color_83 + line.color_84 + line.color_85 + line.color_86 + line.color_87 + line.color_88 + line.color_89 + line.color_90 + line.color_91 + line.color_91 + line.color_92 + line.color_94 + line.color_95 + line.color_96 + line.color_97 + line.color_98 + line.color_99 + line.color_100+ line.color_1d + line.color_1l + line.color_1r + line.color_3d + line.color_3l + line.color_4l + line.color_5l + line.color_6l + line.color_6d + line.color_6m + line.color_7l + line.color_7r + line.color_10d + line.color_11l + line.color_11r + line.color_12r + line.color_13l + line.color_14d + line.color_17r
-        #     # total_roll += line.color_0 + line.color_1 + line.color_2 + line.color_3 + line.color_4 + line.color_5 + line.color_6 + line.color_7 + line.color_8 + line.color_9 + line.color_10 + line.color_11 + line.color_12 + line.color_13 + line.color_14 + line.color_15 + line.color_16 + line.color_17 + line.color_18 + line.color_19 + line.color_20 + line.color_21 + line.color_22 + line.color_23 + line.color_24 + line.color_25 + line.color_26 + line.color_27 + line.color_28 + line.color_29 + line.color_30 + line.color_31 + line.color_32 + line.color_33 + line.color_34 + line.color_35 + line.color_36 + line.color_37 + line.color_38 + line.color_39 + line.color_40 + line.color_41 + line.color_42 + line.color_43 + line.color_44 + line.color_45 + line.color_46 + line.color_47 + line.color_48 + line.color_49 + line.color_50 + line.color_51 + line.color_52 + line.color_53 + line.color_54 + line.color_55 + line.color_56 + line.color_57 + line.color_58 + line.color_59 + line.color_60 + line.color_61 + line.color_62 + line.color_63 + line.color_64 + line.color_65 + line.color_66 + line.color_67 + line.color_68 + line.color_69 + line.color_70 + line.color_71 + line.color_72 + line.color_73 + line.color_74 + line.color_75 + line.color_76 + line.color_77 + line.color_78 + line.color_79 + line.color_80 + line.color_81+ line.color_82 + line.color_83 + line.color_84 + line.color_85 + line.color_86 + line.color_87 + line.color_88 + line.color_89 + line.color_90 + line.color_91 + line.color_91 + line.color_92 + line.color_94 + line.color_95 + line.color_96 + line.color_97 + line.color_98 + line.color_99 + line.color_100 + line.color_1d + line.color_1l + line.color_1r + line.color_3d + line.color_3l + line.color_4l + line.color_5l + line.color_6l + line.color_6d + line.color_6m + line.color_7l + line.color_7r + line.color_10d + line.color_11l + line.color_11r + line.color_12r + line.color_13l + line.color_14d + line.color_17r
-        #     # total_square_feet += line.color_0 + line.color_1 + line.color_2 + line.color_3 + line.color_4 + line.color_5 + line.color_6 + line.color_7 + line.color_8 + line.color_9 + line.color_10 + line.color_11 + line.color_12 + line.color_13 + line.color_14 + line.color_15 + line.color_16 + line.color_17 + line.color_18 + line.color_19 + line.color_20 + line.color_21 + line.color_22 + line.color_23 + line.color_24 + line.color_25 + line.color_26 + line.color_27 + line.color_28 + line.color_29 + line.color_30 + line.color_31 + line.color_32 + line.color_33 + line.color_34 + line.color_35 + line.color_36 + line.color_37 + line.color_38 + line.color_39 + line.color_40 + line.color_41 + line.color_42 + line.color_43 + line.color_44 + line.color_45 + line.color_46 + line.color_47 + line.color_48 + line.color_49 + line.color_50 + line.color_51 + line.color_52 + line.color_53 + line.color_54 + line.color_55 + line.color_56 + line.color_57 + line.color_58 + line.color_59 + line.color_60 + line.color_61 + line.color_62 + line.color_63 + line.color_64 + line.color_65 + line.color_66 + line.color_67 + line.color_68 + line.color_69 + line.color_70 + line.color_71 + line.color_72 + line.color_73 + line.color_74 + line.color_75 + line.color_76 + line.color_77 + line.color_78 + line.color_79 + line.color_80 + line.color_81+ line.color_82 + line.color_83 + line.color_84 + line.color_85 + line.color_86 + line.color_87 + line.color_88 + line.color_89 + line.color_90 + line.color_91 + line.color_91 + line.color_92 + line.color_94 + line.color_95 + line.color_96 + line.color_97 + line.color_98 + line.color_99 + line.color_100 + line.color_1d + line.color_1l + line.color_1r + line.color_3d + line.color_3l + line.color_4l + line.color_5l + line.color_6l + line.color_6d + line.color_6m + line.color_7l + line.color_7r + line.color_10d + line.color_11l + line.color_11r + line.color_12r + line.color_13l + line.color_14d + line.color_17r
-        #
-        #     # this is the formula for square feet calculation
-        #     total_foot += total_square_feet * 36 * 3.281 * 12
-        #     line.square_foot = total_foot
-        #
-        #     # calculate total roll for sale order
-        #     self.total_roll = total_roll
-        #
-        #     # caculate total roll for order  line
-        #     line.total_qty = total
-        #     line.total_price = line.square_foot * line.price_unit - (
-        #             line.square_foot * line.price_unit * line.discount / 100)
-        #
-        #     # calculate line total price
-        #     order_total += line.total_price
-        #     self.total_price = order_total
+
 
 
 
@@ -243,7 +219,8 @@ class CarpetColorline(models.Model):
     @api.onchange('design_id')
     def _onchange_design_id(self):
         if self.design_id:
-            self.image = self.design_id.design_image
+            if self.design_id.design_image:
+                self.image = self.design_id.design_image
 
         # here we make child design required on the base of some specific category
         if self.design_id.name == 'Digital Printed' or self.design_id.name == 'Digital Printed with Felt' or self.design_id.name == 'Tufted Graphics' or self.design_id.name == 'Tufted Scroll':
@@ -315,8 +292,8 @@ class CarpetColorline(models.Model):
         for line in self:
             line.total_price = line.square_foot * line.price_unit
 
-    @api.onchange('design_id', 'quality_id')
-    def _onchange_design_quality(self):
+    @api.onchange('design_id','quality_id')
+    def _onchange_des_qual(self):
         # if both design and quality selected then we concatenate the both to create product name
         for line in self:
             if line.design_id and line.quality_id:
@@ -324,7 +301,18 @@ class CarpetColorline(models.Model):
                     line.product_id = line.design_id.name + "/" + str(
                         line.child_design_id.name) + "/" + line.quality_id.name
                 else:
-                    line.product_id = line.design_id.name + " " + line.quality_id.name
+                    line.product_id = str(line.design_id.name) + "/" + str(line.quality_id.name)
+
+    @api.onchange('child_design_id')
+    def _onchange_design_quality(self):
+        # if both design and quality selected then we concatenate the both to create product name
+        for line in self:
+                if line.child_design_id and line.design_id and line.quality_id:
+                    line.product_id = line.design_id.name + "/" + str(
+                        line.child_design_id.name) + "/" + line.quality_id.name
+                else:
+                    line.product_id = ""
+
 
 class InheritSaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
