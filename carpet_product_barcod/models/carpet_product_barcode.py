@@ -41,7 +41,8 @@ class CarpetProductBarcode(models.Model):
             name = self.categ_id.name + " / " + self.carpet_color+ " / " + str(
             self.meters) + "m" + " / " + self.carpet_quality.display_name
             self.digital_print_child = False
-
+        comp = self.env['res.company'].browse(self._context.get('allowed_company_ids'))
+        comp = comp.filtered(lambda i: 'Sun Fiber' in i.name)
         pro = self.env['product.template'].create({
             'name': name,
             'digital_print_child': self.digital_print_child.id,
@@ -53,10 +54,11 @@ class CarpetProductBarcode(models.Model):
             'carpet_width': self.width,
             'categ_id': self.categ_id.id,
             'barcode': randint(00000000000, 99999999999),
+            'company_id': comp.id if 'Sun Fiber' in comp.name else None
 
         })
         pp = self.env['product.product'].search([('product_tmpl_id', '=', pro.id)])
-
+        loc = self.env['stock.quant'].search([('company_id', '=', comp.id)])
         stock = self.env['stock.quant'].create({
             'inventory_quantity_set': True,
             'product_id': pp.id,
