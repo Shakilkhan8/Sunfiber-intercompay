@@ -18,40 +18,40 @@ class CarpetColorModel(models.Model):
     order_type = fields.Selection([
         ('Mix', 'Mix'),
         ('Print', 'Print'),
-    ], required=True)
+    ])
     delivery_confirm = fields.Selection([
         ('Non-Delivered', 'Non Delivered'),
         ('Delivered', 'Delivered'),
         ('One-Time', 'One Time'),
         ('Half-Paid', 'Half Paid')
-    ], required=True)
+    ])
 
     total_roll = fields.Float('Total roll')
+    required_field_check = fields.Boolean(default=False)
 
-    # @api.depends('color_line_id.total_qty')
-    # def _compute_total_roll(self):
-    #     total_roll = 0
-    #     for line in self.color_line_id:
-    #         total_roll += line.total_qty
-    #     self.total_roll = total_roll
+    def default_get(self, fields_list):
+        res = super(CarpetColorModel, self).default_get(fields_list)
+        if self.env.user.check_company:
+            res['required_field_check'] = True
+        else:
+            res['required_field_check'] = False
+        return res
 
     # calculation of square feet in sale order line on the base of rolls and square feet formulla
     @api.onchange('order_line')
     def _onchange_oder_line(self):
         for rec in self.order_line:
-            # calculation of subtotal on the base of price unit and square feet
-            # rec.price_subtotal = 0
-            # rec.price_subtotal = rec.square_foot * rec.price_unit
-
-            rec.quality_id = rec.product_id.product_tmpl_id.carpet_quality_id.id
-            rec.design_id = rec.product_id.product_tmpl_id.categ_id.id
+            if self.env.user.check_company:
+                rec.quality_id = rec.product_id.product_tmpl_id.carpet_quality_id.id
+                rec.design_id = rec.product_id.product_tmpl_id.categ_id.id
 
             temp = self.env['product.template'].search([('id', '=', rec.product_id.product_tmpl_id.id)])
             if rec.product_uom_qty:
-                if rec.product_id.digital_print_child:
-                    rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
-                else:
-                    rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
+                if self.env.user.check_company:
+                    if rec.product_id.digital_print_child:
+                        rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
+                    else:
+                        rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
 
     @api.onchange('color_line_id')
     def _onchange_line_color(self):
@@ -295,21 +295,22 @@ class CarpetColorline(models.Model):
     @api.onchange('design_id','quality_id')
     def _onchange_des_qual(self):
         # if both design and quality selected then we concatenate the both to create product name
+
         for line in self:
             if line.design_id and line.quality_id:
                 if line.child_design_id:
-                    line.product_id = line.design_id.name + "/" + str(
-                        line.child_design_id.name) + "/" + line.quality_id.name
+                    line.product_id = line.design_id.name + " / " + str(
+                        line.child_design_id.name) + " / " + line.quality_id.name
                 else:
-                    line.product_id = str(line.design_id.name) + "/" + str(line.quality_id.name)
+                    line.product_id = str(line.design_id.name) + " / " + str(line.quality_id.name)
 
     @api.onchange('child_design_id')
     def _onchange_design_quality(self):
         # if both design and quality selected then we concatenate the both to create product name
         for line in self:
                 if line.child_design_id and line.design_id and line.quality_id:
-                    line.product_id = line.design_id.name + "/" + str(
-                        line.child_design_id.name) + "/" + line.quality_id.name
+                    line.product_id = line.design_id.name + " / " + str(
+                        line.child_design_id.name) + " / " + line.quality_id.name
                 else:
                     line.product_id = ""
 
@@ -324,10 +325,15 @@ class InheritSaleOrderLine(models.Model):
     price_subtotal = fields.Float(store=1)
     price_unit = fields.Float('Price Unit', store=True)
 
-    @api.depends('square_foot', 'price_unit')
+    @api.depends('price_unit')
     def _compute_subtotal(self):
         for line in self:
-            line.price_subtotal = line.price_unit * line.square_foot
+            if self.env.user.check_company:
+                line.price_subtotal = line.price_unit * line.square_foot
+
+
+    def calculate_bales(self, price_unit, product_qty):
+        return price_unit * product_qty
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
@@ -338,10 +344,17 @@ class InheritSaleOrderLine(models.Model):
             price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty,
                                             product=line.product_id, partner=line.order_id.partner_shipping_id)
+            subtotal = 0.0
+            if not self.env.user.check_company:
+                    subtotal = self.calculate_bales(line.price_unit, line.product_uom_qty)
+            else:
+               subtotal = line.price_unit * line.square_foot
+
             line.update({
                 'price_tax': taxes['total_included'] - taxes['total_excluded'],
                 'price_total': taxes['total_included'],
-                'price_subtotal': line.price_unit * line.square_foot
+                'price_subtotal': subtotal,
+                'bales': (line.product_uom_qty/240)
             })
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
