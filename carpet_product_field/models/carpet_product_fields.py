@@ -23,7 +23,7 @@ class CarpetProductFields(models.Model):
 class DigitalPrintChildCategory(models.Model):
     _name = 'digital.print.child'
 
-
     name = fields.Char('Child Design')
     image = fields.Binary('Image')
     categ_id = fields.Many2one('product.category')
+    combine_design_image = fields.Binary('Combine Design Image')
