@@ -14,7 +14,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['base', 'carpet_product_barcod', 'carpet_color', 'carpet_product_field'],
+    'depends': ['base', 'stock','carpet_color', 'carpet_product_barcod', 'carpet_product_field'],
 
     'data': [
         'security/carpet_security_groups.xml',

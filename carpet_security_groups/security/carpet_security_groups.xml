@@ -8,5 +8,12 @@
         <record id="carpet_manager_group_id" model="res.groups">
             <field name="name">Carpet / Manager</field>
         </record>
+
+        <record id="carpet_user_group_id" model="res.groups">
+            <field name="name">Carpet User</field>
+        </record>
+        <record id="fiber_user_group_id" model="res.groups">
+            <field name="name">Fiber User</field>
+        </record>
     </data>
 </odoo>
