@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-
+from operator import itemgetter
 
 class DeliveryPackingModel(models.Model):
     _name = 'report.carpet_delivery_report.carpet_delivery_report'
@@ -23,7 +23,7 @@ class DeliveryPackingModel(models.Model):
 
 
         return {
-            'record1': data,
+            'record1': sorted(data, key=lambda i: i['color'] and i['design_name']),
             'order': order,
             'number': order.name,
             'order_number': order.origin,
