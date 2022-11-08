@@ -10,7 +10,6 @@ class DeliveryPackingModel(models.Model):
         data = []
 
         for line in order.move_ids_without_package:
-
                 data.append({
                 'design_name': line.product_id.categ_id.name,
                 'quality_name': line.quality_id.name,
@@ -21,9 +20,12 @@ class DeliveryPackingModel(models.Model):
                 'grade': line.product_id.carpet_grade_id.name,
             })
 
+        data.sort(key=operator.itemgetter('design_name', 'color'))
+        name_sort = sorted(data, key=lambda i: i['design_name'])
+        color_sort = sorted(name_sort, key=lambda i: (i['design_name'],i['color']))
 
         return {
-            'record1': sorted(data, key=itemgetter('design_name', 'color')),
+            'record1': color_sort,
             'order': order,
             'number': order.name,
             'order_number': order.origin,
