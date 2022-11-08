@@ -23,7 +23,7 @@ class DeliveryPackingModel(models.Model):
 
 
         return {
-            'record1': sorted(data, key=lambda i: (i['design_name'])),
+            'record1': sorted(data, key=lambda i: i['color']),
             'order': order,
             'number': order.name,
             'order_number': order.origin,
